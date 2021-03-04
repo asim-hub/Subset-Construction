@@ -1,0 +1,49 @@
+Asimionesei Daniel
+Tema2 LFA
+
+In main se afla logica si implementarea programului:
+    Citesc datele din fisier si imi construiesc nfa-ul.Pentru reprezentarea nfa-ului
+mi-am facut o clasa NFA unde fac initializarile (cea din laborator).Pentru ca in
+fisierul de intare nu am alfabetul, pe acesta il construiesc din liniile de tranziti.
+Intr-un obiect de tip NFA voi salva: numarul de stari, starile, alfanetul, starea initiala,
+starile finale (toate acestea sub forma de lista sau de seturi )si matricea delta (dictinar).
+Pentru definirea unei stari in dfa am facut o clasa State, unde salvez indexul starii
+si lista de stari din nfa care o compun.
+    Tranzitiile DFA-ul pe care il voi construi le voi salva intr-un nou dictionar
+si voi avea mereu o lista cu starile construite pana in acel moment ale DFA-ului.
+La inceput voi avea doar starea initiala S0 = Epsilon_clos(0).
+Algoritmul prin care determin starile din dfa este urmatorul:
+-construiesc starea initiala care este inchiderea pe epsilon a lui
+0 din nda (si o adaug in lista de stari)
+-cu o bucla merg prin lista de stari ale dfa-ului
+-pentru fiecare stare din dfa calculez starile umatoare:
+    -calculez tranzitiile de la starile din nfa, care se regasesc in reprezentarea
+    starii curente a dfa-ului, pe fiecare litera din alfabet => cate o lista de stari
+    urmatoare din nfa pentru fiecare litera
+    -pe fiecare lista de stari urmatoare din nfa aplic inchiderea pe epsilon si rezulta
+    starile urmatoare din dfa
+    -daca o stare nu se regaseste in lista prin care iterez eu: o constuiesc,
+    o adaug in lista si actualizezi dictionarul(cel al dfa-ului), dar daca
+    exista: doar actualizez dictionarul (cel al dfa-ului)
+Pentru a calcula starile urmatoare din nfa, folosesc functia func_del, iar pentru a
+calcula inchiderile pe epsilon, folosesc functia eps_clos.
+Functia func_del: primeste ca parametrii reprezentarea nfa-ului, indicele unei
+stari si un caracter si returneaza lista de stari posibile in care pot sa ajung
+din acea stare pe acel caracter.
+Functia eps_close:primeste ca parametrii reprezentarea unui nfa si indexul unei satri
+si plecand de la lista care  contine doar strea primita ca parametru [st],
+adaug toate starile catre care am tranzitii din starea st pe epsilon, si fac
+acelasi lucru  si pentru restul starilor pe care le adaug ulterior in lista
+pana cand parcurg toata lista (lista creste pe masura ce o parcurg).
+
+La final, avand dictionarul corespunzator dfa-ului construiesc un string care va fi scris
+in fisierul de iesire.String care contine numărul de stări, lista de stări finale si toate
+tranzitiile posibile.
+
+In algoritm am evitat constructia tuturor starilor posibile prin combinarea starilor
+nfa-ului(multe fiind redundante) si am construit doar starile semnificative.
+
+
+
+
+
